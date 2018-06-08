@@ -1,14 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Hobby from '../Hobby/index'
 
 export default class Profile extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      liked: 0
+      liked: 0,
+      hobbies: ['skateboarding', 'rock music']
     }
-    this.likedCallback = ::this.likedCallback
+    // this.likedCallback = ::this.likedCallback
+    this.likedCallback = this.likedCallback.bind(this)
+    this.hobbyDom = React.createRef()
+    this.addHobbyCallback = this.addHobbyCallback.bind(this)
   }
+  getDefaultProps() {}
+  getInitialState() {}
+  componentWillMount() {}
+  componentDidMount() {
+    setTimeout(() => {
+      this.likedCallback()
+    },1000)
+    this.hobbyDom.current.focus()
+  }
+  componentWillReceiveProps() {}
+  shouldComponentUpdate() {}
+  componentWillUpdate() {}
+  componentDidUpdate() {}
+  componentWillUnmount() {}
   likedCallback() {
     let { liked } = this.state
     // liked = this.state.liked
@@ -17,6 +36,20 @@ export default class Profile extends React.Component {
       liked
     })
   }
+  addHobbyCallback() {
+    console.log(this.hobbyDom)
+    // const hobbyInput = this.refs.hobby
+    // const val = hobbyInput.value
+    // if (val){
+    //   let { hobbies } = this.state
+    //   hobbies = [...hobbies, val]
+    //   this.setState({
+    //     hobbies
+    //   },() => {
+    //     hobbyInput.value = ''
+    //   })
+    // }
+  }
   render() {
     return (
       <div className="container">
@@ -24,12 +57,20 @@ export default class Profile extends React.Component {
         <h2>我今年{this.props.age}岁</h2>
         <button onClick={this.likedCallback}>给我点赞</button>
         <h2>总点赞数: {this.state.liked}</h2>
+        <h2>我的爱好:</h2>
+        <ul>
+          {this.state.hobbies.map((v,i) => {
+            return <Hobby key={i} hobby={v} />
+          })}
+        </ul>
+        <input type="text" ref={() => this.hobbyDom} />
+        <button onClick={this.addHobbyCallback}>添加爱好</button>
       </div>
     )
   }
 }
 
 Profile.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number
+  name: PropTypes.string.isRequired,
+  age: PropTypes.number.isRequired
 }

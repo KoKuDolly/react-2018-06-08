@@ -33,8 +33,8 @@ module.exports= {
     rules: [
       {
         test: /\.jsx?$/,
-        // loaders: ['babel-loader', 'eslint-loader'],
-        loaders: ['babel-loader'],
+        loaders: ['babel-loader', 'eslint-loader'],
+        // loaders: ['babel-loader'],
         include: APP_PATH
       }
     ]
