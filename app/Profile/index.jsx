@@ -11,7 +11,6 @@ export default class Profile extends React.Component {
     }
     // this.likedCallback = ::this.likedCallback
     this.likedCallback = this.likedCallback.bind(this)
-    this.hobbyDom = React.createRef()
     this.addHobbyCallback = this.addHobbyCallback.bind(this)
   }
   getDefaultProps() {}
@@ -21,10 +20,9 @@ export default class Profile extends React.Component {
     setTimeout(() => {
       this.likedCallback()
     },1000)
-    this.hobbyDom.current.focus()
   }
   componentWillReceiveProps() {}
-  shouldComponentUpdate() {}
+  shouldComponentUpdate() { return true }
   componentWillUpdate() {}
   componentDidUpdate() {}
   componentWillUnmount() {}
@@ -37,18 +35,16 @@ export default class Profile extends React.Component {
     })
   }
   addHobbyCallback() {
-    console.log(this.hobbyDom)
-    // const hobbyInput = this.refs.hobby
-    // const val = hobbyInput.value
-    // if (val){
-    //   let { hobbies } = this.state
-    //   hobbies = [...hobbies, val]
-    //   this.setState({
-    //     hobbies
-    //   },() => {
-    //     hobbyInput.value = ''
-    //   })
-    // }
+    const val = this.inputValue.value
+    if (val){
+      let { hobbies } = this.state
+      hobbies = [...hobbies, val]
+      this.setState({
+        hobbies
+      },() => {
+        this.inputValue.value = ''
+      })
+    }
   }
   render() {
     return (
@@ -63,7 +59,7 @@ export default class Profile extends React.Component {
             return <Hobby key={i} hobby={v} />
           })}
         </ul>
-        <input type="text" ref={() => this.hobbyDom} />
+        <input type="text" ref={(input) => { this.inputValue = input }} />
         <button onClick={this.addHobbyCallback}>添加爱好</button>
       </div>
     )
