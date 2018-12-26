@@ -6,7 +6,7 @@ const ROOT_PATH = path.resolve(__dirname)
 const APP_PATH = path.resolve(ROOT_PATH,'app')
 const BUILD_PATH = path.resolve(ROOT_PATH,'build')
 
-module.exports= {
+module.exports = {
   entry: {
     app: path.resolve(APP_PATH,'index.jsx')
   },
@@ -23,9 +23,9 @@ module.exports= {
     inline: true,
     progress: true
   },
-  
+
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx']
     // root: path.resolve(path.join(__dirname),'app')
   },
 
@@ -42,7 +42,7 @@ module.exports= {
 
   plugins: [
     new HtmlwebpackPlugin({
-      title: 'My First React App'
+      title: 'react-demo'
     })
   ]
 }
